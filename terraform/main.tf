@@ -2,8 +2,8 @@
 
 # Locals para Tablas de DynamoDB
 locals {
-  table_name = "example-${var.environment}"
-  table_billing_mode = ""
+  table_name         = "example-${var.environment}"
+  table_billing_mode = "PAY_PER_REQUEST" # "PROVISIONED"|"PAY_PER_REQUEST"
 }
 
 resource "aws_dynamodb_table" "example_table" {
