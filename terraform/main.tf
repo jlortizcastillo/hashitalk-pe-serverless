@@ -105,3 +105,10 @@ resource "aws_lambda_function" "lambda_function" {
     data.archive_file.lambda_package
   ]
 }
+
+resource "aws_lambda_permission" "lambda_permission" {
+  action        = "lambda:InvokeFunction"
+  function_name = aws_lambda_function.lambda_function.function_name
+  principal     = "apigateway.amazonaws.com"
+  source_arn    = "${aws_api_gateway_rest_api.rest_api.execution_arn}/*/*/*"
+}
