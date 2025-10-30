@@ -1,9 +1,13 @@
 # --- /terraform/main.tf ---
 
-# Locals para Tablas de DynamoDB
 locals {
+  # Locals para Tablas de DynamoDB
   table_name         = "example-${var.environment}"
   table_billing_mode = "PAY_PER_REQUEST" # "PROVISIONED"|"PAY_PER_REQUEST"
+
+  # Locals para Funcion Lambda
+  log_group_name           = "example-log-group-${var.environment}"
+  log_group_retention_days = "7"
 }
 
 resource "aws_dynamodb_table" "example_table" {
@@ -27,3 +31,15 @@ resource "aws_dynamodb_table" "example_table" {
     Environment = var.environment
   }
 }
+
+# Cloudwatch Log Group
+resource "aws_cloudwatch_log_group" "lambda_log_group" {
+  name              = local.log_group_name
+  retention_in_days = local.log_group_retention_days
+
+  tags = {
+    Name        = local.log_group_name
+    Environment = var.environment
+  }
+}
+

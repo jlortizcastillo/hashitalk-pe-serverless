@@ -1,5 +1,5 @@
 # --- /terraform/locals.tf ---
 
 locals {
-  
+
 }
