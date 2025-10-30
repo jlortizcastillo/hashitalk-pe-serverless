@@ -5,9 +5,6 @@ locals {
   table_name         = "example-${var.environment}"
   table_billing_mode = "PAY_PER_REQUEST" # "PROVISIONED"|"PAY_PER_REQUEST"
 
-  # Locals para CloudWatch
-  log_group_name = "example-log-group-${var.environment}"
-
   # Locals para Lambda
   lambda_requirements      = false
   lambda_root_directory    = "../lambdas"
@@ -22,6 +19,9 @@ locals {
   lambda_handler_path      = "${local.lambda_file_source_dir}/${local.lambda_file_name}.py"
   lambda_runtime           = "python3.11"
   lambda_timeout           = "30" # En Segundos
+
+  # Locals para CloudWatch
+  log_group_name = "/aws/lambda/${local.lambda_name}"
 }
 
 resource "aws_dynamodb_table" "example_table" {
