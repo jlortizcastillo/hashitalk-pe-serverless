@@ -2,10 +2,10 @@
 
 terraform {
   backend "remote" {
-    organization = "organization-name"
+    organization = "jloc-cloud"
 
     workspaces {
-      name = "workspace-name"
+      name = "hashitalk-pe-serverless-dev"
     }
   }
 }
