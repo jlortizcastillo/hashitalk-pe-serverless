@@ -1,5 +1,9 @@
 # --- /terraform/iam.tf ---
 
+locals {
+  lambda_role_name = "example-lambda-role-${var.environment}"
+}
+
 # Lambda Permissions
 data "aws_iam_policy_document" "lambda_permissions_document" {
 
@@ -36,4 +40,9 @@ data "aws_iam_policy_document" "assume_policy_document" {
 
     actions = ["sts:AssumeRole"]
   }
+}
+
+resource "aws_iam_role" "lambda_role" {
+  name               = local.lambda_role_name
+  assume_role_policy = data.aws_iam_policy_document.assume_policy_document.json
 }
